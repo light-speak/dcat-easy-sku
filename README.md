@@ -110,6 +110,32 @@ $form->saved(function (Form $form, int $result) {
 }
 ```
 
+#### 上传图片
+
+默认接口为 /api/skuImage, 可在js文件自行修改
+
+```php
+    /**
+     * 上传商品规格图片
+     *
+     * @param Request $request
+     *
+     * @return string[]
+     */
+    public function skuImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $disk = Storage::disk('cosv5');
+            $url = 'sku';
+            $res = $disk->put($url, $file);
+            // 返回格式
+            return ['url' => config('app.cos.cdn') . $res];
+        }
+        return [];
+    }
+```
+
 ## Licence
 
 ```

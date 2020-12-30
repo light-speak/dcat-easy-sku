@@ -19,7 +19,7 @@
                 '<div class="sku_attr_val_input">' +
                 '<input type="text" class="form-control">' +
                 '</div>' +
-                '<span class="btn btn-danger Js_remove_attr_val"><i class="feather icon-x"></i></span>' +
+                '<span class="btn btn-default Js_remove_attr_val"><i class="feather icon-x"></i></span>' +
                 '</div>';
             $(this).before(html);
         });
@@ -40,15 +40,15 @@
                 '<div class="sku_attr_val_input">' +
                 '<input type="text" class="form-control">' +
                 '</div>' +
-                '<span class="btn btn-danger Js_remove_attr_val"><i class="feather icon-x"></i></span>' +
+                '<span class="btn btn-default Js_remove_attr_val"><i class="feather icon-x"></i></span>' +
                 '</div>' +
                 '<div class="sku_attr_val_item Js_add_attr_val" style="padding-left:10px">' +
-                '<span class="btn btn-success"><i class="feather icon-plus"></i></span>' +
+                '<span class="btn btn-primary"><i class="feather icon-plus"></i></span>' +
                 '</div>' +
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                '<span class="btn btn-danger Js_remove_attr_name">移除</span>' +
+                '<span class="btn btn-default Js_remove_attr_name">移除</span>' +
                 '</td>' +
                 '</tr>';
             _this.warp.find('.sku_attr_key_val tbody').append(html)

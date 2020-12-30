@@ -1,7 +1,3 @@
-.sku_warp{
-    padding: 10px 10px;
-    border: 1px solid #d2d6de;
-}
 .sku_warp .sku_attr_key_val{
     margin-top: 10px;
 }
@@ -36,7 +32,6 @@
     width: 40px;
     font-size: 32px;
     line-height: 40px;
-    border: 1px solid #d2d6de;
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
@@ -48,7 +43,6 @@
 .sku_warp .sku_edit_warp  .Js_sku_del_pic{
     display: inline-block;
     margin-left: 5px;
-    color: #ff0000;
     text-decoration: underline;
     cursor: pointer;
 }

@@ -24,16 +24,16 @@
                                     <div class="sku_attr_val_input">
                                         <input type="text" class="form-control">
                                     </div>
-                                    <span class="btn btn-danger Js_remove_attr_val"><i
+                                    <span class="btn btn-default Js_remove_attr_val"><i
                                                 class="feather icon-x"></i></span>
                                 </div>
                                 <div class="sku_attr_val_item Js_add_attr_val" style="padding-left: 10px">
-                                    <span class="btn btn-success"><i class="feather icon-plus"></i></span>
+                                    <span class="btn btn-primary"><i class="feather icon-plus"></i></span>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span class="btn btn-success Js_add_attr_name">添加</span>
+                            <span class="btn btn-primary Js_add_attr_name">添加</span>
                         </td>
                     </tr>
                     </tbody>
@@ -51,3 +51,9 @@
 
     </div>
 </div>
+
+<style>
+    .sku_warp .sku_edit_warp  .Js_sku_del_pic{
+        color: {{  Admin::color()->get('cyan') }};
+    }
+</style>
