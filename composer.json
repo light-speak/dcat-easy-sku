@@ -1,0 +1,31 @@
+{
+    "name": "lty5240/dcat-easy-sku",
+    "description": "基于Dcat Admin的Sku插件",
+    "type": "library",
+    "keywords": ["dcat-admin", "extension"],
+    "homepage": "https://github.com/lty5240/dcat-easy-sku",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "linty",
+            "email": "linty@lintyone.cn"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "dcat/laravel-admin": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dcat\\Admin\\Extension\\EasySku\\": "src/"
+        }
+    },
+    "extra": {
+        "dcat-admin": "Dcat\\Admin\\Extension\\EasySku\\DcatEasySkuServiceProvider",
+        "laravel": {
+            "providers": [
+                "Dcat\\Admin\\Extension\\EasySku\\DcatEasySkuServiceProvider"
+            ]
+        }
+    }
+}
