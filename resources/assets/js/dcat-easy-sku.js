@@ -10,6 +10,9 @@
         this.init();
     }
 
+    const uploadImageButton = '<i class="feather icon-upload-cloud"></i>'
+    const deleteImageButton = '<i class="feather icon-x"></i>'
+
     SKU.prototype.init = function () {
         let _this = this;
 
@@ -30,28 +33,30 @@
             _this.getSkuAttr();
         });
 
+        let attrHtml = '<tr>' +
+            '<td><input type="text" class="form-control"></td>' +
+            '<td>' +
+            '<div class="sku_attr_val_warp">' +
+            '<div class="sku_attr_val_item">' +
+            '<div class="sku_attr_val_input">' +
+            '<input type="text" class="form-control">' +
+            '</div>' +
+            '<span class="btn btn-default Js_remove_attr_val"><i class="feather icon-x"></i></span>' +
+            '</div>' +
+            '<div class="sku_attr_val_item Js_add_attr_val" style="padding-left:10px">' +
+            '<span class="btn btn-primary"><i class="feather icon-plus"></i></span>' +
+            '</div>' +
+            '</div>' +
+            '</td>' +
+            '<td>' +
+            '<span class="btn btn-default Js_remove_attr_name">移除</span>' +
+            '</td>' +
+            '</tr>';
+
+
         // 绑定添加属性名事件
         _this.warp.find('.Js_add_attr_name').click(function () {
-            let html = '<tr>' +
-                '<td><input type="text" class="form-control"></td>' +
-                '<td>' +
-                '<div class="sku_attr_val_warp">' +
-                '<div class="sku_attr_val_item">' +
-                '<div class="sku_attr_val_input">' +
-                '<input type="text" class="form-control">' +
-                '</div>' +
-                '<span class="btn btn-default Js_remove_attr_val"><i class="feather icon-x"></i></span>' +
-                '</div>' +
-                '<div class="sku_attr_val_item Js_add_attr_val" style="padding-left:10px">' +
-                '<span class="btn btn-primary"><i class="feather icon-plus"></i></span>' +
-                '</div>' +
-                '</div>' +
-                '</td>' +
-                '<td>' +
-                '<span class="btn btn-default Js_remove_attr_name">移除</span>' +
-                '</td>' +
-                '</tr>';
-            _this.warp.find('.sku_attr_key_val tbody').append(html)
+            _this.warp.find('.sku_attr_key_val tbody').append(attrHtml)
         });
 
         // 绑定移除属性名事件
@@ -67,19 +72,31 @@
 
         // SKU图片上传
         _this.warp.find('.sku_edit_warp tbody').on('click', '.Js_sku_upload', function () {
-            _this.upload($(this))
+            const input = $(this).parent().find('input');
+            if (input.val() === '') {
+                _this.upload($(this));
+            }else{
+                input.val('')
+                $(this).css('background-image', 'none').html(uploadImageButton);
+                _this.processSku()
+            }
         });
 
-        // 清空SKU图片
-        _this.warp.find('.sku_edit_warp tbody').on('click', '.Js_sku_del_pic', function () {
-            let td = $(this).parent();
-            td.find('input').val('');
-            td.find('.Js_sku_upload').css('background-image', 'none');
-            _this.processSku()
+        _this.warp.find('.sku_edit_warp tbody').on('mouseenter', '.Js_sku_upload', function () {
+            if ($(this).html() === '') {
+                $(this).html(deleteImageButton)
+            }
+        });
+
+        _this.warp.find('.sku_edit_warp tbody').on('mouseleave', '.Js_sku_upload ', function () {
+            if ($(this).html() === deleteImageButton) {
+                $(this).html('')
+            }
         });
 
         let old_val = _this.warp.find('.Js_sku_input').val();
         let params = _this.warp.find('.Js_sku_params_input').val();
+
         if (old_val) {
             // 根据值生成DOM
             old_val = JSON.parse(old_val);
@@ -89,11 +106,14 @@
             let tbody = _this.warp.find('.sku_attr_key_val tbody');
             let attr_keys = Object.keys(attr_names);
             let attr_keys_len = attr_keys.length;
+
             attr_keys.forEach(function (attr_key, index) {
                 // 规格名
                 let tr = tbody.find('tr').eq(index);
+                if (index >= 1 && index !== attr_keys_len - 1) {
+                    _this.warp.find('.sku_attr_key_val tbody').append(attrHtml)
+                }
                 tr.find('td:eq(0) input').val(attr_key);
-
                 // 规格值
                 let attr_val_td = tr.find('td:eq(1)');
                 let attr_vals = attr_names[attr_key];
@@ -118,6 +138,7 @@
             _this.processSku()
         }
     };
+
 
     // 获取SKU属性
     SKU.prototype.getSkuAttr = function () {
@@ -161,14 +182,14 @@
             // 渲染表头
             let thead_html = '<tr>';
             attr_names.forEach(function (attr_name) {
-                thead_html += '<th>' + attr_name + '</th>'
+                thead_html += '<th style="width: 80px">' + attr_name + '</th>'
             });
-            thead_html += '<th style="width: 100px">图片</th>';
+            thead_html += '<th style="width: 70px">图片</th>';
             thead_html += '<th style="width: 100px">库存</th>';
-            thead_html += '<th style="width: 100px">普通用户价格</th>';
+            thead_html += '<th>普通用户价格</th>';
 
             params.forEach((v) => {
-                thead_html += '<th style="width: 100px">' + v['name'] + '</th>'
+                thead_html += '<th>' + v['name'] + '</th>'
             })
 
             thead_html += '</tr>';
@@ -193,12 +214,11 @@
                 tbody_html += '<tr>';
                 sku_item.forEach(function (attr_val, index) {
                     let attr_name = attr_names[index];
-                    tbody_html += '<td data-field="' + attr_name + '">' + attr_val + '</td>';
+                    tbody_html += '<td data-field="' + attr_name + '" class="attr-name">' + attr_val + '</td>';
                 });
-                tbody_html += '<td data-field="pic"><input value="" type="hidden" class="form-control"><span class="Js_sku_upload">+</span><span class="Js_sku_del_pic">清空</span></td>';
+                tbody_html += '<td data-field="pic"><input value="" type="hidden" class="form-control"><span class="Js_sku_upload">' + uploadImageButton + '</span></td>';
                 tbody_html += '<td data-field="stock"><input value="" type="text" class="form-control"></td>';
                 tbody_html += '<td data-field="price"><input value="" type="text" class="form-control"></td>';
-
 
                 params.forEach((v) => {
                     tbody_html += '<td data-field="' + v['field'] + '"><input value="' + v['default'] + '" type="text" class="form-control"></td>';
@@ -215,8 +235,8 @@
                         if (input.length) {
                             input.val(item_sku[field]);
                             let sku_upload = tr.find('td[data-field="' + field + '"] .Js_sku_upload');
-                            if (sku_upload.length) {
-                                sku_upload.css('background-image', 'url(' + item_sku[field] + ')');
+                            if (sku_upload.length && item_sku[field]) {
+                                sku_upload.css('background-image', 'url(' + item_sku[field] + ')').html('');
                             }
                         }
                     })
@@ -279,7 +299,7 @@
                 },
                 processData: false, //告诉jQuery不要去处理发送的数据
                 success: function (res) {
-                    obj.css('background-image', 'url(' + res.url + ')');
+                    obj.css('background-image', 'url(' + res.url + ')').html('');
                     obj.parent().find('input').val(res.url);
                     _this.processSku()
                 }

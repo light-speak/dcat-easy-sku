@@ -53,7 +53,17 @@
 </div>
 
 <style>
-    .sku_warp .sku_edit_warp  .Js_sku_del_pic{
+    .sku_warp .sku_edit_warp .Js_sku_del_pic {
         color: {{  Admin::color()->get('cyan') }};
     }
+
+    .sku_warp .sku_edit_warp .Js_sku_upload {
+        border: 1px solid{{ Admin::color()->get('input-border') }};
+        color: {{ Admin::color()->get('dark70') }};
+    }
+
+    .sku_warp .sku_edit_warp tr td  .icon-x{
+        color: {{ Admin::color()->get('danger') }};
+    }
+
 </style>

@@ -1,48 +1,70 @@
-.sku_warp .sku_attr_key_val{
+.sku_warp .sku_attr_key_val {
     margin-top: 10px;
 }
-.sku_warp .sku_attr_val_warp{
+
+.sku_warp .sku_attr_val_warp {
     clear: both;
 }
-.sku_warp .sku_attr_val_warp:after{
+
+.sku_warp .sku_attr_val_warp:after {
     content: ' ';
     display: block;
     clear: both;
 }
-.sku_warp .sku_attr_val_item{
+
+.sku_warp .sku_attr_val_item {
     display: inline-block;
     float: left;
 }
 
-.sku_warp .sku_attr_val_item .sku_attr_val_input{
+.sku_warp .sku_attr_val_item .sku_attr_val_input {
     margin-left: 10px;
     margin-bottom: 5px;
     width: 100px;
     float: left;
 }
 
-.sku_warp .sku_attr_val_item .btn{
+.sku_warp .sku_attr_val_item .btn {
     float: left;
     border-radius: 0 !important;
 }
 
-.sku_warp .sku_edit_warp .Js_sku_upload{
+.sku_warp .sku_edit_warp .Js_sku_upload {
     display: inline-block;
     height: 40px;
     width: 40px;
-    font-size: 32px;
-    line-height: 40px;
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
     user-select: none;
     background-size: 100%;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    padding-top: 13px;
 }
 
-.sku_warp .sku_edit_warp  .Js_sku_del_pic{
+.sku_warp .sku_edit_warp .Js_sku_del_pic {
     display: inline-block;
     margin-left: 5px;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.sku_warp .sku_edit_warp tr th, .sku_warp .sku_edit_warp .attr-name {
+    line-height: 40px;
+}
+
+.sku_warp .sku_edit_warp tr th, .sku_warp .sku_edit_warp tr td {
+    text-align: center;
+    padding-left: .65rem;
+}
+
+.sku_warp .sku_edit_warp tr td input {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.sku_warp .sku_edit_warp tr td .icon-upload-cloud, .sku_warp .sku_edit_warp tr td  .icon-x {
+    font-size: 18px;
+    line-height: 10px;
 }
