@@ -252,21 +252,23 @@
         let ths = _this.warp.find('.sku_edit_warp thead th')
         let tr = _this.warp.find('.sku_edit_warp tbody tr')
         let tds = tr.find('td[data-field]')
+
         ths.each(function () {
             let th = $(this)
             let input = th.find('input')
-            input.change(function (){
+            input.change(function () {
                 let value = input.val()
                 let field = th.attr('data-field')
                 // 找出所有带这个attr的下级
-                tds.each(function (){
+                tds.each(function () {
                     let td = $(this)
                     let tdField = td.attr('data-field')
                     let tdInput = td.find('input')
-                    if(tdInput && field === tdField){
+                    if (tdInput && field === tdField) {
                         tdInput.val(value);
                     }
                 })
+                _this.processSku()
             })
         });
     };
