@@ -75,7 +75,7 @@
             const input = $(this).parent().find('input');
             if (input.val() === '') {
                 _this.upload($(this));
-            }else{
+            } else {
                 input.val('')
                 $(this).css('background-image', 'none').html(uploadImageButton);
                 _this.processSku()
@@ -139,7 +139,6 @@
         }
     };
 
-
     // 获取SKU属性
     SKU.prototype.getSkuAttr = function () {
         let attr = {}; // 所有属性
@@ -184,12 +183,12 @@
             attr_names.forEach(function (attr_name) {
                 thead_html += '<th style="width: 80px">' + attr_name + '</th>'
             });
-            thead_html += '<th style="width: 70px">图片</th>';
-            thead_html += '<th style="width: 100px">库存</th>';
-            thead_html += '<th>普通用户价格</th>';
+            thead_html += '<th data-field="pic" style="width: 70px">图片 </th>';
+            thead_html += '<th data-field="stock" style="width: 100px">库存 <input type="text" class="form-control"></th>';
+            thead_html += '<th data-field="price">普通用户价格 <input type="text" class="form-control"></th>';
 
             params.forEach((v) => {
-                thead_html += '<th>' + v['name'] + '</th>'
+                thead_html += '<th data-field="' + v['field'] + '">' + v['name'] + '<input  type="text" class="form-control"></th>'
             })
 
             thead_html += '</tr>';
@@ -244,6 +243,32 @@
             }
         }
         _this.processSku()
+        _this.setListener()
+    };
+
+
+    SKU.prototype.setListener = function () {
+        let _this = this
+        let ths = _this.warp.find('.sku_edit_warp thead th')
+        let tr = _this.warp.find('.sku_edit_warp tbody tr')
+        let tds = tr.find('td[data-field]')
+        ths.each(function () {
+            let th = $(this)
+            let input = th.find('input')
+            input.change(function (){
+                let value = input.val()
+                let field = th.attr('data-field')
+                // 找出所有带这个attr的下级
+                tds.each(function (){
+                    let td = $(this)
+                    let tdField = td.attr('data-field')
+                    let tdInput = td.find('input')
+                    if(tdInput && field === tdField){
+                        tdInput.val(value);
+                    }
+                })
+            })
+        });
     };
 
     // 处理最终SKU数据，并写入input

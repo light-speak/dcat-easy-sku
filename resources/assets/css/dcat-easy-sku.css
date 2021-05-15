@@ -68,3 +68,7 @@
     font-size: 18px;
     line-height: 10px;
 }
+
+.sku_warp .sku_edit_warp tr th input {
+    text-align: center;
+}
